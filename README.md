@@ -19,6 +19,8 @@ The point isn't to re-write generic encyclopedia knowledge a model already has. 
 
 > **First principle — this is not a neutral encyclopedia, it's "yours".** It serves three purposes: ① a **memo** (things you're afraid to forget, easy to look up); ② a **knowledge asset** (your accumulation, reusable); ③ a **second-me** (once accumulated enough, a model can use your knowledge + style + thinking to make rough judgments on your behalf).
 
+> **Division of labor (after Karpathy).** You do **four things**: curate sources, direct the analysis, ask good questions, and think about what it all means. **Everything else is the AI's** — summarizing, cross-referencing, filing, bookkeeping, keeping pages consistent. You don't hand-maintain the wiki and you don't sign off on every entry; correctness is anchored by **traceable sources** (every fact links back to where it came from) and **periodic lint** (scheduled health-checks for contradictions, staleness, broken links, orphans), not by line-by-line human review. People abandon wikis when maintenance outgrows the value — here the AI carries that cost, so it stays near zero.
+
 ### Design at a glance
 
 - **Three layers** — `raw/` (source) → `wiki/` (compiled knowledge) → `self/` (the second-me seed). Quotes aren't a separate layer; they're a `wiki/quotes/` page type (`type: quote`).
