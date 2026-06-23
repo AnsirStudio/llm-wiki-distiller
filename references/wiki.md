@@ -38,9 +38,19 @@ wiki/
 - `concept` vs `method`：如果重点是定义和理解，是 concept；如果有可执行步骤，是 method。
 - `method` vs `tip`：method 可复用且有步骤；tip 是一个小场景里的一个动作。
 - `topic` vs `comparison`：topic 是外部世界正在讨论什么；comparison 是你或 agent 做的结构化对比。
-- `summary` vs raw：raw 是原文；summary 是对原文的压缩理解。
+- `summary` vs raw：raw 是原文；summary 是 raw 的前引速览，供以后搜索知识库时先快速判断是否需要回看原文。
+- `summary` vs 其他 wiki 页：summary 不是核心知识页，也不是蒸馏终点；concept/entity/method/tip 等才承载可复用知识。不要把 summary 内容换个标题重复成 concept。
 - `quote`：只收真正击中用户、值得复用或保留的表达。长篇摘录仍应回到 raw 或 summary。
 - `scrap`：不是垃圾桶，而是“暂时还不够成型”。审查模式定期看是否能升级。
+
+## 蒸馏入库
+
+- 蒸馏是把来源里的知识拆出来，汇入现有 wiki 网络；不是为单篇文章机械生成页面。
+- 先从来源识别候选：概念、人物/公司/工具、方法、tip、quote、GitHub/工具项目、topic、comparison、self 信号。
+- 对每个候选先搜索现有 wiki 的标题、别名、相近概念、相关主体和来源 URL。能承接到旧页时，优先更新旧页：补充新事实、例子、边界、来源、时间线和互链。
+- 只有现有页面不能承接、且候选未来可能单独搜索或复用时，才新建页面。
+- 控制数量：普通来源通常只写 0-3 个高价值更新/新页；密集来源或用户要求深挖时才更多。零碎小点留在 summary 或 log，不强行拆页。
+- 素材简介、正文或视频说明里的配套资源、提示词、模板、工具链接、下载链接、项目仓库等，要在 summary 正文中写 `## 配套资源` 或同义章节；不要只放进 YAML `original_url` 或末尾 `## 来源`。
 
 ## 详略度
 

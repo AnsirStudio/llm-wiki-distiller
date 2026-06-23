@@ -18,6 +18,7 @@ raw/
   videos/
   work/
   socialmedia/
+    creator-name/
   dropzone/
 ```
 
@@ -34,8 +35,29 @@ raw/
 - `raw/research/`：调研合集、搜索结果、带来源清单的研究材料。
 - `raw/videos/`：视频、讲座、访谈、字幕、逐字稿。
 - `raw/work/`：工作材料、项目材料、文档、PPT/PDF 提取文本。
-- `raw/socialmedia/`：社交媒体内容，包括抖音、YouTube、小红书、B 站、X 等。
+- `raw/socialmedia/`：社交媒体内容，包括抖音、YouTube、小红书、B 站、X 等；按创作者人名建子文件夹，规则见下方“社媒创作者归档”。
 - `raw/dropzone/`：过小、方向不清、暂时无法蒸馏的碎片。
+
+## 社媒创作者归档
+
+`raw/socialmedia/` 与其他 raw 类目不同：按创作者归类，不按平台归类。
+
+存放格式：
+
+```text
+raw/socialmedia/{创作者名}/{platform}-{年}-{主题}.md
+```
+
+规则：
+
+- 一个创作者只建一个文件夹；同一人运营抖音、YouTube、小红书、B 站、X 等多个账号时，所有平台内容都放入同一个 `{创作者名}/` 文件夹。
+- 认领社媒素材时，先用账号主页链接、账号名、简介等信息检查 `wiki/entities/` 和 `raw/socialmedia/`：已有 entity 或已有同人文件夹时，沿用现有文件夹名。
+- 如果平台显示名不同，但头像、简介、互相提及、联系方式、内容主题等能判断为同一人，合并进已有文件夹；移动文件后更新所有旧路径引用，不留断链。
+- 如果无法判断是否同一人，先分别建文件夹，并把疑似重复写入 `nextstep.md` 等待人审。
+- 如果疑似是同一人改名，优先沿用旧文件夹；在旧 entity 页记录新名字、新链接和判断依据，必要时加入 `aliases`。不要擅自改 entity 文件名或 title；正式改名要进入 `nextstep.md` 等用户确认。
+- 文件名只写 `{platform}-{年}-{主题}.md`，不要重复写创作者名。`platform` 用小写英文，例如 `douyin`、`youtube`、`xiaohongshu`、`bilibili`、`x`。
+- frontmatter 至少包含 `raw_type: socialmedia`、`platform`、`original_url`、`creator`、`source_date`。`creator` 必须等于父文件夹名。
+- 正文保留原始链接、标题和全文内容；视频放逐字稿，图文笔记放全文文案。封面、配图、截图只在影响理解时放入 `raw/attachment/` 并引用。
 
 ## 处理原则
 

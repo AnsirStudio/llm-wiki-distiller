@@ -11,6 +11,7 @@ raw_type: article
 created: 2026-06-23
 source_date:
 author:
+creator:
 platform:
 original_url:
 attachment: []
@@ -29,12 +30,15 @@ status: unprocessed
 - `source_date`：素材发布或产生日期；不知道就留空。
 - `created`：进入知识库的日期。
 - `author`：作者、创作者、对话参与者或机构；不知道就留空。
+- `creator`：社媒创作者名；`raw_type: socialmedia` 时必填，且必须等于 `raw/socialmedia/{创作者名}/` 的父文件夹名。
 - `platform`：YouTube、Douyin、X、博客、PDF、微信等。
 - `original_url`：原始链接；没有就留空。
 - `attachment`：附件路径数组，例如 `["raw/attachment/report.pdf"]`。
 - `status`：处理状态。
 
 ## Markdown 正文
+
+`raw_type: socialmedia` 的文件路径必须是 `raw/socialmedia/{创作者名}/{platform}-{年}-{主题}.md`，按人归档，不按平台归档；同一创作者的多平台内容放在同一个创作者文件夹下。
 
 新建 raw 指针文件时用这个最小结构：
 
