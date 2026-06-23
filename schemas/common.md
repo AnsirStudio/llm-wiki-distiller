@@ -21,9 +21,10 @@ depth: standard
 volatility: evergreen
 valid_as_of:
 review_by:
-review_status: ai-draft
 ---
 ```
+
+> wiki/ 与 root 页面不带审查状态字段——AI 写入即可用，质量靠溯源、`## 来源` 引用和审查模式的定期 lint 兜底，不逐条人工核。仅 `self/` 页保留一个轻量 `verified` 打钩，见 `schemas/self.md`。
 
 ## 受控词表
 
@@ -32,7 +33,6 @@ review_status: ai-draft
 - `confidence`：`high`, `medium`, `low`, `uncertain`。
 - `depth`：`light`, `standard`, `deep`。
 - `volatility`：`evergreen`, `volatile`。
-- `review_status`：`ai-draft`, `user-reviewed`。
 
 ## 字段说明
 
@@ -42,7 +42,6 @@ review_status: ai-draft
 - `related`：内部相关页面。
 - `valid_as_of`：仅 volatile 页面必填。
 - `review_by`：仅 volatile 页面建议填写，通常 1-6 个月后。
-- `review_status`：AI 新建或改动后保持 `ai-draft`；只有用户确认后改 `user-reviewed`。
 
 ## 日期
 

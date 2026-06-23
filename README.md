@@ -25,7 +25,7 @@ The point isn't to re-write generic encyclopedia knowledge a model already has. 
 - **One root index.** A single `index.md` (plus `log.md` / `nextstep.md`) is the navigation.
 - **Rules vs. format are split.** `references/` holds the *method* (how to decide, what goes where); `schemas/` holds the *format* (YAML frontmatter, controlled vocabulary, body structure).
 - **Progressive disclosure is built in.** `SKILL.md` only routes; each mode reads its references and schemas **step by step**, loading a rule file only at the step that needs it. The agent never front-loads the whole manual.
-- **Controlled-vocabulary YAML + a clear review gate.** Pages carry Obsidian/Dataview-friendly frontmatter (`status`, `confidence`, `depth`, `volatility`, `review_status`…). AI writes land as `review_status: ai-draft`; only the user promotes to `user-reviewed`.
+- **Controlled-vocabulary YAML, no per-entry review chore.** Pages carry Obsidian/Dataview-friendly frontmatter (`status`, `confidence`, `depth`, `volatility`…). `wiki/` and root pages carry **no** review-status field — AI writes are usable on arrival; trust rests on traceable sources and periodic lint, not line-by-line sign-off. Only `self/` pages keep a lightweight `verified` checkbox (default `false`, the user ticks it `true`), since facts about *you* are the costly ones to get wrong.
 
 ## What it does / does not do
 
@@ -56,7 +56,7 @@ A design choice specific to a self-centric base. **Strong signals about the pers
 ## Core rules (summary)
 
 1. **Trace, never fabricate** — every fact links to a source; if missing, leave it blank, don't pad with `unknown`. One fact, one source library-wide.
-2. **Human-review gate** — AI-written pages are `review_status: ai-draft`; only the user promotes to `user-reviewed`.
+2. **Light verify on `self/` only** — `self/` pages carry a `verified` checkbox (AI keeps it `false`; only the user ticks `true`). `wiki/`/root pages have no review gate — they're trusted on write and kept honest by sources + lint.
 3. **Search before write** — dedup by source / similar title / alias / URL / core sentence.
 4. **Absolute dates** — never persist "yesterday / today / recently" without the `YYYY-MM-DD`.
 5. **Keep contradictions** — on conflict, keep both claims, sources, and dates; mark it, never silently overwrite.
@@ -84,7 +84,7 @@ Fills in whatever's missing, skips what already exists; "already exists" is judg
 
 ## How to use
 
-Drop material into `raw/inbox/`, then tell the agent what you want ("distill these", "review the library", "jot down this person's profile link", "did I save anything about X"). It runs the root check, picks a mode from your wording, loads only the rules that step needs, claims items out of inbox when needed, routes each through the layers, writes `ai-draft` pages, and updates `index.md` / `log.md` / `nextstep.md` — lookup questions are answered straight from the library with no file changes. Full method in `SKILL.md`.
+Drop material into `raw/inbox/`, then tell the agent what you want ("distill these", "review the library", "jot down this person's profile link", "did I save anything about X"). It runs the root check, picks a mode from your wording, loads only the rules that step needs, claims items out of inbox when needed, routes each through the layers, writes the pages, and updates `index.md` / `log.md` / `nextstep.md` — lookup questions are answered straight from the library with no file changes. Full method in `SKILL.md`.
 
 > One more thing: this skill keeps evolving with the author's own day-to-day use. If a step / prompt / guardrail doesn't fit how you work, fork it and adjust — future updates mostly follow the author's usage and won't necessarily fit everyone.
 

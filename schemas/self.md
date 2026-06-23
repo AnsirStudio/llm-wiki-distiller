@@ -6,6 +6,22 @@
 
 `self-observations`, `self-identity`, `self-preferences`, `self-now`, `self-profile`
 
+## verified 字段（仅 self 页）
+
+self 是 second me 的种子，关于「你自己」的事实一旦写错会污染下游所有推断，所以这一层保留一个轻量的人工确认开关——但只是打钩，不是逐条强制核。
+
+在 self 页 frontmatter 里加一行：
+
+```yaml
+verified: false
+```
+
+- 受控词表：`false`（默认，AI 草稿）、`true`（用户已确认）。
+- AI 新建或改动 self 页时一律写/保持 `verified: false`，**绝不**自己改成 `true`。
+- 只有用户亲自确认后把它打钩成 `verified: true`。
+- 不强制——你大可让大部分条目长期停在 `false`，只给真正在意的核心身份事实打钩。
+- wiki/ 与 root 页不带这个字段。
+
 ## observations.md
 
 ```markdown

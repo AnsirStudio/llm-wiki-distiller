@@ -25,7 +25,7 @@
 - **单一根 index。** 用一个 `index.md`（加 `log.md` / `nextstep.md`）做导航。
 - **规则与格式分家。** `references/` 放*方法*（怎么判断、放哪里）；`schemas/` 放*格式*（YAML frontmatter、受控词表、正文结构）。
 - **渐进式披露（progressive disclosure）内建。** `SKILL.md` 只负责路由；每个 mode **逐步**读取自己的 references 和 schemas，只在需要那条规则的那一步才加载对应文件，绝不一开始就把整本手册灌进上下文。
-- **受控词表 YAML + 清晰的审查门。** 页面带 Obsidian / Dataview 友好的 frontmatter（`status`、`confidence`、`depth`、`volatility`、`review_status`…）。AI 写入落为 `review_status: ai-draft`，只有用户能升级成 `user-reviewed`。
+- **受控词表 YAML，不再逐条人审。** 页面带 Obsidian / Dataview 友好的 frontmatter（`status`、`confidence`、`depth`、`volatility`…）。`wiki/` 与根页面**不带**审查状态字段——AI 写入即可用，质量靠可溯源的来源和定期 lint，不逐条签字。只有 `self/` 页保留一个轻量 `verified` 打钩（默认 `false`，用户打钩成 `true`），因为关于「你自己」的事实错了代价最大。
 
 ## 做什么 / 不做什么
 
@@ -56,7 +56,7 @@ SKILL.md  →  modes/<模式>.md  →  （一步一步）references/* 然后 sch
 ## 核心规则（速览）
 
 1. **溯源不编造** —— 每条事实链回来源；缺失就留空，别用 `未知` 填满。同一事实全库单一出处。
-2. **人审门控** —— AI 写的页一律 `review_status: ai-draft`；只有用户能升级成 `user-reviewed`。
+2. **仅 self 轻量确认** —— `self/` 页带一个 `verified` 打钩（AI 一律保持 `false`，只有用户打钩成 `true`）；`wiki/`/根页面无审查门，写入即信任，靠来源 + lint 兜底。
 3. **写前搜索** —— 按来源 / 相似标题 / 别名 / URL / 核心句子去重。
 4. **绝对日期** —— 持久化事实绝不只写「昨天 / 今天 / 最近」，必带 `YYYY-MM-DD`。
 5. **矛盾保留** —— 冲突时双方说法、来源、日期都留，标记冲突，绝不静默覆盖。
@@ -84,7 +84,7 @@ SKILL.md  →  modes/<模式>.md  →  （一步一步）references/* 然后 sch
 
 ## 怎么用
 
-把素材丢进 `raw/inbox/`，再告诉 agent 你想怎么处理（「把这些蒸进库」「review 下数据库」「记一下这个人的主页」「我之前是不是记过 X」）。它会先做根目录检查、按语义定模式、只加载这一步需要的规则、必要时把条目从 inbox 认领出来、每条过三层、写 `ai-draft` 页，并更新 `index.md` / `log.md` / `nextstep.md`；检索类问题则直接读库作答，不落盘任何改动。完整方法见 `SKILL.md`。
+把素材丢进 `raw/inbox/`，再告诉 agent 你想怎么处理（「把这些蒸进库」「review 下数据库」「记一下这个人的主页」「我之前是不是记过 X」）。它会先做根目录检查、按语义定模式、只加载这一步需要的规则、必要时把条目从 inbox 认领出来、每条过三层、写入页面，并更新 `index.md` / `log.md` / `nextstep.md`；检索类问题则直接读库作答，不落盘任何改动。完整方法见 `SKILL.md`。
 
 > 多说一句：这个 skill 会跟着作者自己的实际使用持续进化。如果某个流程 / prompt / 护栏跟你的习惯不合拍，欢迎直接 fork 改成适合自己的版本——后续更新方向主要跟着作者自己的使用场景走，未必每次都贴合所有人。
 
