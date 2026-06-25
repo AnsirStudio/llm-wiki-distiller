@@ -24,7 +24,7 @@ The point isn't to re-write generic encyclopedia knowledge a model already has. 
 ### Design at a glance
 
 - **Three layers** — `raw/` (source) → `wiki/` (compiled knowledge) → `self/` (the second-me seed). Quotes aren't a separate layer; they're a `wiki/quotes/` page type (`type: quote`).
-- **One root index.** A single `index.md` (plus `log.md` / `nextstep.md`) is the navigation.
+- **One root index.** A single `index.md` (plus `log.md` / `pending.md`) is the navigation.
 - **Rules vs. format are split.** `references/` holds the *method* (how to decide, what goes where); `schemas/` holds the *format* (YAML frontmatter, controlled vocabulary, body structure).
 - **Progressive disclosure is built in.** `SKILL.md` only routes; each mode reads its references and schemas **step by step**, loading a rule file only at the step that needs it. The agent never front-loads the whole manual.
 - **Controlled-vocabulary YAML, no per-entry review chore.** Pages carry Obsidian/Dataview-friendly frontmatter (`status`, `confidence`, `depth`, `volatility`…). `wiki/` and root pages carry **no** review-status field — AI writes are usable on arrival; trust rests on traceable sources and periodic lint, not line-by-line sign-off. Only `self/` pages keep a lightweight `verified` checkbox (default `false`, the user ticks it `true`), since facts about *you* are the costly ones to get wrong.
@@ -63,7 +63,7 @@ A design choice specific to a self-centric base. **Strong signals about the pers
 4. **Absolute dates** — never persist "yesterday / today / recently" without the `YYYY-MM-DD`.
 5. **Keep contradictions** — on conflict, keep both claims, sources, and dates; mark it, never silently overwrite.
 6. **Never delete, only iterate** — archive / supersede / deprecate, and keep history; confirm before any physical delete.
-7. **Don't over-infer** — weak-evidence personality / preference calls get `confidence: low` or wait in `nextstep.md`; don't infer protected traits, medical/legal/financial status from thin evidence.
+7. **Don't over-infer** — weak-evidence personality / preference calls get `confidence: low` or wait in `pending.md`; don't infer protected traits, medical/legal/financial status from thin evidence.
 8. **Wiki is compiled memory, not a raw store** — keep the raw path, don't move full original text into `wiki/`.
 9. **Calibrate depth on the timeline** — knowledge before `2025-01-01` is written light unless it matters to you; newer knowledge (filling the post-training gap) earns more detail, judged by *usefulness*, not completeness.
 
@@ -73,7 +73,7 @@ Fills in whatever's missing, skips what already exists; "already exists" is judg
 
 ```
 <project-root>/
-├── index.md  log.md  nextstep.md           # single root navigation + append-only log + open items
+├── index.md  log.md  pending.md           # single root navigation + append-only log + open items
 ├── raw/    # single source of truth, kept close to original
 │   ├── inbox/        # unprocessed entry  (inbox/clipping/ for clipper auto-saves)
 │   ├── attachment/   # binaries (PDF/img/video/PPT/audio), each referenced by a raw .md pointer
@@ -86,7 +86,7 @@ Fills in whatever's missing, skips what already exists; "already exists" is judg
 
 ## How to use
 
-Drop material into `raw/inbox/`, then tell the agent what you want ("distill these", "review the library", "jot down this person's profile link", "did I save anything about X"). It runs the root check, picks a mode from your wording, loads only the rules that step needs, claims items out of inbox when needed, routes each through the layers, writes the pages, and updates `index.md` / `log.md` / `nextstep.md` — lookup questions are answered straight from the library with no file changes. Full method in `SKILL.md`.
+Drop material into `raw/inbox/`, then tell the agent what you want ("distill these", "review the library", "jot down this person's profile link", "did I save anything about X"). It runs the root check, picks a mode from your wording, loads only the rules that step needs, claims items out of inbox when needed, routes each through the layers, writes the pages, and updates `index.md` / `log.md` / `pending.md` — lookup questions are answered straight from the library with no file changes. Full method in `SKILL.md`.
 
 > One more thing: this skill keeps evolving with the author's own day-to-day use. If a step / prompt / guardrail doesn't fit how you work, fork it and adjust — future updates mostly follow the author's usage and won't necessarily fit everyone.
 
@@ -103,7 +103,7 @@ Drop material into `raw/inbox/`, then tell the agent what you want ("distill the
 | `schemas/raw.md` | raw pointer format, source metadata, attachment references. |
 | `schemas/wiki.md` | Per-type frontmatter + body structure for each wiki page type. |
 | `schemas/self.md` | Schema for the self five-piece. |
-| `schemas/root.md` | `index.md` / `log.md` / `nextstep.md` format. |
+| `schemas/root.md` | `index.md` / `log.md` / `pending.md` format. |
 
 ## Lineage & Credits
 

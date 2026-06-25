@@ -37,7 +37,7 @@
 - 通用字段：`schemas/common.md`
 - wiki 页面：`schemas/wiki.md`
 - self 页面：`schemas/self.md`
-- `index.md`、`log.md`、`nextstep.md`：`schemas/root.md`
+- `index.md`、`log.md`、`pending.md`：`schemas/root.md`
 
 写入规则：
 
@@ -53,7 +53,7 @@
 - 重要页面有 `## 时间线`。
 - `index.md` 已同步。
 - `log.md` 已记录。
-- 未确认、缺口或后续动作已写入 `nextstep.md`。
+- 未确认、缺口或后续动作已写入 `pending.md`。
 
 ## 输出
 

@@ -33,4 +33,4 @@
 
 - 不移动 inbox。
 - 不创建或修改页面。
-- 不更新 `index.md`、`log.md`、`nextstep.md`。
+- 不更新 `index.md`、`log.md`、`pending.md`。

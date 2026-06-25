@@ -32,7 +32,7 @@ description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 
 - `schemas/raw.md`：raw markdown 指针、来源 metadata、附件引用规则。
 - `schemas/wiki.md`：wiki 各类型页面的 frontmatter 与正文结构。
 - `schemas/self.md`：self 五件套 schema。
-- `schemas/root.md`：`index.md`、`log.md`、`nextstep.md` 格式。
+- `schemas/root.md`：`index.md`、`log.md`、`pending.md` 格式。
 
 不要一次读完所有资源。按 mode 的步骤逐步读取。
 
@@ -45,7 +45,7 @@ description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 
 - 存在 `raw/`，且其中有 `inbox/`、`attachment/`、`dropzone/` 或其他 raw 分类。
 - 存在 `wiki/`，且其中有 `concept/`、`entity/`、`summary/`、`scrap/` 或其他 wiki 分类。
 - 存在 `self/`，且其中有 `observations.md`、`identity.md`、`preferences.md`、`now.md`、`profile.md` 中任意文件。
-- 存在根目录文件 `index.md`、`log.md`、`nextstep.md` 中至少 2 个。
+- 存在根目录文件 `index.md`、`log.md`、`pending.md` 中至少 2 个。
 
 处理方式：
 
