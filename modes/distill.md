@@ -1,6 +1,6 @@
 # 蒸馏模式
 
-用于把 `raw/inbox/`、剪藏、文章、聊天、社交媒体、书籍、研究、截图、PDF、视频转录、GitHub 项目或其他 raw 素材正式蒸馏进 `wiki/` 和 `self/`。
+用于把 `raw/inbox/`、剪藏、文章、聊天、社交媒体、书籍、研究、截图、PDF、视频转录、GitHub 项目或其他 raw 素材正式蒸馏进 `wiki/`。
 
 核心原则：一步一步做。不要在开头读完所有 reference/schema；每一步只读当前判断需要的文件。
 
@@ -84,7 +84,7 @@
 
 ## Step 3：内容阅读与初筛
 
-仍只使用 raw 规则；不要急着读取 wiki/self schema。
+仍只使用 raw 规则；不要急着读取 wiki schema。
 
 阅读素材本身，输出初筛：
 
@@ -92,29 +92,26 @@
 - 是否只适合 `raw/dropzone/` 或未来再看；
 - 是否值得创建 `wiki/summary/` 作为 raw 前引速览；
 - 素材简介、正文、视频说明、评论置顶或附件里是否有配套资源、提示词、模板、工具链接、下载链接、项目仓库等，需要在正文里保留；
-- 是否包含明显 self 信号；
 - 是否包含 wiki 知识候选；
 - 是否包含值得保留的 quote。
 
 如果素材太弱，只按 `wiki/scrap/` 或 `raw/dropzone/` 处理，不硬塞成正式条目。
 
-## Step 4：判定 wiki/self 落点
+## Step 4：判定 wiki 落点
 
 到这一步才按需要读取：
 
 - 有 wiki 候选时读 `references/wiki.md`
-- 有 self 信号时读 `references/self.md`
 
 对每条候选先判定，再写入：
 
 1. wiki 候选属于 `concept/entity/topic/summary/method/tip/github/comparison/quote/scrap` 哪一类。
-2. self 信号属于明确事实、强推断还是弱信号。
-3. 是否需要补充当前来源或一手来源。
-4. 是否优先更新已有页面，而不是新建。
+2. 是否需要补充当前来源或一手来源。
+3. 是否优先更新已有页面，而不是新建。
 
 蒸馏不是单篇文章提取器，也不是把文章总结成一个 concept。对文章、视频、播客等完整素材，`summary` 只作为 raw 的前引速览：以后搜索到相关来源时，先读 summary 判断是否需要回看原文。真正的蒸馏是把来源里的候选知识拿去和现有 wiki 对齐：先搜相似页面、别名、旧概念、相关主体和来源 URL；能补充旧页就迭代旧页，确实是新概念/新主体/新方法/新 tip 才新建，并把新旧页面互链。
 
-弱 self 信号不要马上写进 `self/identity.md` 或 `self/preferences.md`。让它留在 `log.md` 中，审查模式再聚合。
+素材中关于用户本人的信号（偏好、习惯、身份线索）不属于本知识库的写入范围：值得留的在 `log.md` 里带一句即可，由调用方系统自行消费，不建页、不写入 wiki。
 
 ### 数据缺口过滤
 
@@ -133,7 +130,6 @@
 到这一步才读取具体 schema：
 
 - 写 wiki 页面时读 `schemas/common.md` 和 `schemas/wiki.md`
-- 写 self 页面时读 `schemas/common.md` 和 `schemas/self.md`
 - 写 root 文件时读 `schemas/root.md`
 
 写入规则：
@@ -142,8 +138,7 @@
 - 先更新已有页面，再创建新页面。
 - summary 一对一对应重要 raw 来源，只做前引速览，不当作核心 wiki 成果。
 - 写 concept/entity/method/tip 等页面前必须搜索现有 wiki：优先补充、修正、加来源和互链；只有没有合适承接页时才新建。
-- 写入或更新任何 wiki/self 页面前，先清洗 YAML `original_url`：只保留 `http://` 或 `https://` 外部 URL。本地 `.md` 路径、`raw/...` 路径、`wiki/summary/...` 页面、Obsidian 内链、附件路径、绝对/相对文件路径、对话里的本地文档链接全部不能进入 `original_url`；这些证据关系写到正文 `## 来源` 或 `related`。没有外部 URL 就写 `original_url: []`。
-- self 只写明确事实和强证据；敏感或模糊推断写入 `pending.md` 等用户确认。
+- 写入或更新任何 wiki 页面前，先清洗 YAML `original_url`：只保留 `http://` 或 `https://` 外部 URL。本地 `.md` 路径、`raw/...` 路径、`wiki/summary/...` 页面、Obsidian 内链、附件路径、绝对/相对文件路径、对话里的本地文档链接全部不能进入 `original_url`；这些证据关系写到正文 `## 来源` 或 `related`。没有外部 URL 就写 `original_url: []`。
 - quote 放入 `wiki/quotes/`，不做独立 quotes 层。
 - 冲突不调和，保留双方来源和日期。
 - **不要给页面加"编辑日志"式的时间线/版本里程碑**（改动史由 git 和 `log.md` 承担）；只有当"时间顺序本身就是内容"（产品功能演进、话题发酵）时才写时间线，且写的是**主体的历史**、不是**这页第几版改了啥**。
@@ -156,7 +151,7 @@
 
 - 新增/更新页面已进 `index.md`。
 - `log.md` 记录本批来源、动作、topic、页面数量、弱信号。
-- `pending.md` 只记录通过上面“数据缺口过滤”门槛的数据缺口（数量克制，不逐条罗列），以及待确认 self 推断、待深挖对象。
+- `pending.md` 只记录通过上面“数据缺口过滤”门槛的数据缺口（数量克制，不逐条罗列），以及待确认推断、待深挖对象。
 - 断链、重复页、未填字段已检查。
 
 ## 输出

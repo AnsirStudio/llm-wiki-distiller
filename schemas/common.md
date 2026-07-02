@@ -1,6 +1,6 @@
 # 通用 Schema
 
-所有 wiki/self/root 页面尽量使用稳定 YAML，方便 agent、Obsidian 和 Dataview 查询。
+所有 wiki/root 页面尽量使用稳定 YAML，方便 agent、Obsidian 和 Dataview 查询。
 
 ## 通用 Frontmatter
 
@@ -24,11 +24,11 @@ review_by:
 ---
 ```
 
-> wiki/ 与 root 页面不带审查状态字段——AI 写入即可用，质量靠溯源、`## 来源` 引用和审查模式的定期 lint 兜底，不逐条人工核。仅 `self/` 页保留一个轻量 `verified` 打钩，见 `schemas/self.md`。
+> wiki/ 与 root 页面不带审查状态字段——AI 写入即可用，质量靠溯源、`## 来源` 引用和审查模式的定期 lint 兜底，不逐条人工核。
 
 ## 受控词表
 
-- `type`：见 `schemas/wiki.md`、`schemas/self.md`、`schemas/root.md`。
+- `type`：见 `schemas/wiki.md`、`schemas/root.md`。
 - `status`：`current`, `needs-review`, `superseded`, `deprecated`, `archived`。
 - `confidence`：`high`, `medium`, `low`, `uncertain`。
 - `depth`：`light`, `standard`, `deep`。
@@ -51,8 +51,8 @@ review_by:
 ## original_url 护栏
 
 - YAML `original_url` 是快速索引，不是完整 bibliography。
-- wiki/self 页面不要使用 `sources` 字段；需要来源索引时统一写 `original_url`。
-- 只收能支撑页面主结论、身份判断、关键事实或 self 信号的核心外部 URL。
+- wiki 页面不要使用 `sources` 字段；需要来源索引时统一写 `original_url`。
+- 只收能支撑页面主结论、身份判断或关键事实的核心外部 URL。
 - `original_url` 永远不写本地 `.md` 文件路径、`raw/...` 路径、`wiki/summary/...` 页面、Obsidian 内链、绝对文件路径、相对文件路径、附件路径或对话里的本地文档链接。没有外部 URL 就保持 `original_url: []`。
 - raw 文件、summary 页、本地素材、附件、内部 wiki 页和对话来源的证据关系，统一写在正文 `## 来源` 或 `## 关联`，内部页面互链写 `related`。
 - 搜索补充、背景资料、延伸阅读、同主题但未直接支撑结论的链接，放正文末尾 `## 来源`，并用简短说明标注用途。

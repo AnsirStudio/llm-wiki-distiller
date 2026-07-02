@@ -1,19 +1,18 @@
 ---
-name: second-me-wiki-distiller
-description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 second me 种子。用于把原始笔记、网页剪藏、文章、聊天、社交媒体、书籍、研究、截图、GitHub 项目或对话蒸馏进结构化个人 wiki；用于快速新增或修改 wiki/self 条目；用于审查、清理、合并、检索个人知识库；也用于从长期记录中蒸馏用户的稳定事实、身份、偏好、当前事项和个人 profile。
+name: llm-wiki-distiller
+description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库。用于把原始笔记、网页剪藏、文章、聊天、社交媒体、书籍、研究、截图、GitHub 项目或对话蒸馏进结构化个人 wiki；用于快速新增或修改 wiki 条目；也用于审查、清理、合并、检索个人知识库。
 ---
 
-# Second Me Wiki
+# LLM Wiki Distiller
 
 ## 核心想法
 
 维护一个面向大模型使用的个人知识库：记录用户学到了什么、看重什么、注意到什么、保存过什么、总是忘记什么，以及希望未来模型能记住什么。不要重复写百科式通用知识；重点保留用户自己的视角、来源路径、训练截止之后的新信息，以及可复用的个人上下文。
 
-三层结构：
+两层结构：
 
 1. `raw/`：原始素材、附件和待处理 inbox。
 2. `wiki/`：由 LLM 维护的蒸馏条目。
-3. `self/`：关于用户本人的慢变量表示，也就是 second me 的种子。
 
 任何创建、修改、删除、归档或实质性审查，都要同步更新 `index.md` 和 `log.md`。
 
@@ -23,16 +22,14 @@ description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 
 
 - `modes/quick.md`：不经过 inbox 的快速新增、修改、归档、删除。
 - `modes/distill.md`：处理 `raw/inbox/` 或其他 raw 素材并正式蒸馏。
-- `modes/review.md`：审查、健康检查、合并提议、长期 self 升维。
+- `modes/review.md`：审查、健康检查、合并提议。
 - `modes/search.md`：只读检索和总结，不写入。
 - `modes/integrate.md`：并行编排时，编排者把多个 capture-only 子 agent 的 proposal 统一落库（唯一写手、串行）。
 - `references/raw.md`：raw 目录、来源分类、附件、重复素材处理。
 - `references/wiki.md`：wiki 页面类型判断、边界、写入规则。
-- `references/self.md`：self 五件套、证据等级、second me 画像规则。
 - `schemas/common.md`：通用 YAML 字段、受控词表、日期和状态。
 - `schemas/raw.md`：raw markdown 指针、来源 metadata、附件引用规则。
 - `schemas/wiki.md`：wiki 各类型页面的 frontmatter 与正文结构。
-- `schemas/self.md`：self 五件套 schema。
 - `schemas/root.md`：`index.md`、`log.md`、`pending.md` 格式。
 - `schemas/proposal.md`：并行编排时 capture-only → integrate 的暂存提案格式。
 
@@ -46,21 +43,20 @@ description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 
 
 - 存在 `raw/`，且其中有 `inbox/`、`attachment/`、`dropzone/` 或其他 raw 分类。
 - 存在 `wiki/`，且其中有 `concept/`、`entity/`、`summary/`、`scrap/` 或其他 wiki 分类。
-- 存在 `self/`，且其中有 `observations.md`、`identity.md`、`preferences.md`、`now.md`、`profile.md` 中任意文件。
 - 存在根目录文件 `index.md`、`log.md`、`pending.md` 中至少 2 个。
 
 处理方式：
 
 - 命中 2 类或以上：继续模式门。
 - 命中 0 类，且当前目录为空或接近空：询问用户是否在当前目录初始化知识库，或提供已有知识库路径。
-- 命中 0-1 类，且当前目录明显是其他项目：停止，要求用户提供知识库路径；不要在当前项目里创建 `raw/`、`wiki/`、`self/`。
+- 命中 0-1 类，且当前目录明显是其他项目：停止，要求用户提供知识库路径；不要在当前项目里创建 `raw/`、`wiki/`。
 - 用户在请求中明确提供知识库路径时，切换到该路径后重新做本检查。
 
 ## 模式门
 
 按用户语义四选一，不要求用户说出模式名：
 
-1. 用户要复盘/维护现有库，例如“review 一下”“检查矛盾”“整理画像”“跑健康检查” → 读 `modes/review.md`。
+1. 用户要复盘/维护现有库，例如“review 一下”“检查矛盾”“跑健康检查” → 读 `modes/review.md`。
 2. 用户只想查/问/总结已有内容，不要求新增或修改 → 读 `modes/search.md`。
 3. 用户要新增、修改、归档或删除，但不需要处理 inbox/raw 原始素材 → 读 `modes/quick.md`。
 4. 用户要处理 `raw/inbox/`、剪藏、长文、聊天、社媒、PDF、视频转录、GitHub 项目或其他 raw 素材 → 读 `modes/distill.md`。
@@ -75,7 +71,7 @@ description: 构建和维护一个由 LLM 维护的个人 Markdown 知识库与 
 - YAML `original_url` 只放核心外部 URL，用于快速打开网页、视频、帖子、论文、项目主页等一手来源；只允许 `http://` 或 `https://`。本地 `.md`、`raw/...`、`wiki/summary/...`、附件路径、绝对/相对文件路径、Obsidian 内链和对话里的本地文档链接永远不能写入 `original_url`；没有外部 URL 就留空数组 `[]`。raw 路径、summary 页和内部证据关系写正文 `## 来源` 或 `related`。搜索补充、背景资料、延伸阅读放正文末尾的 `## 来源`，不要塞进 frontmatter。不要在 wiki/self YAML 中使用 `sources` 字段。
 - `2025-01-01` 以前的知识默认轻写，除非它对用户很重要、罕见，或构成用户思考基础。`2025-01-01` 之后的知识可以更重视，因为它可能补足模型训练截止后的 gap，但仍以“有用”而不是“完整”为准。
 - 使用绝对日期。持久化事实里不要只写“昨天”“今天”“最近”，除非同时写明绝对日期。
-- 区分事实、推断、偏好和弱信号。弱信号不直接升级为稳定 self 事实。
+- 区分事实、推断、偏好和弱信号。弱信号不直接当作稳定事实写入。
 - 新来源和旧页面冲突时，保留双方说法、来源和日期，标记冲突，不要静默覆盖。
 - 写入前搜索重复页面、相似标题、别名、来源 URL 和核心句子。
 - 默认不物理删除知识；归档、过时、被取代要保留历史。真正删除前必须确认。

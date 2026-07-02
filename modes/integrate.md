@@ -18,12 +18,12 @@
 
 ## Step 3：写共享页（唯一写手，逐页 read-modify-write）
 
-读具体 schema(`schemas/common.md` + `schemas/wiki.md` / `schemas/self.md`):
+读具体 schema(`schemas/common.md` + `schemas/wiki.md`):
 
 - **真正读旧页再改**,把合并后的贡献融进去,不是往页尾追加新段(这是旧版"两个时间线/重复段"的根源)。
+- **页面已有遗留的「编辑日志」式 `## 时间线` / `## 版本里程碑` 段时,绝不往里追加新条目**——跟着旧结构走是实测踩过的坑;把贡献融进正文对应小节,遗留段留给 review 机械层清理。
 - 先更新已有页,再创建新页,新旧互链。
 - 冲突保留双方来源和日期,不静默覆盖。
-- self:强信号才写 self 页;弱信号留 log;模糊的进 pending 等确认。
 
 ## Step 4：更新 index.md
 
