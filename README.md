@@ -35,7 +35,6 @@ The point isn't to re-write generic encyclopedia knowledge a model already has. 
 - ✅ **Distill (write)** — process `raw/inbox/` (and other raw material), route each piece through raw normalization → wiki candidates → quotes, and write traceable pages.
 - ✅ **Review (maintain)** — sweep the library: contradictions, lint, staleness, broken links, orphans, dedup, `scrap`/`dropzone` clustering — cursor-driven and sliced, never a full-library read.
 - ✅ **Search (ask)** — answer "did I save X" / "what's in the library about Y" by reading the compiled pages and citing them; never writes, never touches `log.md`, never fabricates.
-- ❌ **No self/persona store** — signals about the user found in material are noted in `log.md` for the calling system to consume; this skill maintains world knowledge, not an identity layer.
 - ❌ **No orchestration awareness** — it ships no `AGENTS.md`/`CLAUDE.md` and doesn't know who dispatches it; when to parallelize and how to dispatch sub-agents is the caller's concern.
 
 ## The mode gate (always the first step)
