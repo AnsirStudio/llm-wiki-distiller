@@ -33,7 +33,7 @@ The point isn't to re-write generic encyclopedia knowledge a model already has. 
 
 - ✅ **Quick** — any write that doesn't need raw inbox material: add, edit, archive, or delete a `wiki/` entry, or jot a small knowledge point straight in.
 - ✅ **Distill (write)** — process `raw/inbox/` (and other raw material), route each piece through raw normalization → wiki candidates → quotes, and write traceable pages.
-- ✅ **Review (maintain)** — sweep the library: contradictions, lint, staleness, broken links, orphans, dedup, `scrap`/`dropzone` clustering — cursor-driven and sliced, never a full-library read.
+- ✅ **Review (maintain)** — sweep the library: contradictions, lint, staleness, broken links, orphans, dedup, `scrap`/`dropzone` clustering, distill-quality sampling, library metrics — cursor-driven and sliced, never a full-library read; each run emits a dated report under `review/` (the latest report *is* the cursor, and rollups aggregate report frontmatter into monthly/quarterly views).
 - ✅ **Search (ask)** — answer "did I save X" / "what's in the library about Y" by reading the compiled pages and citing them; never writes, never touches `log.md`, never fabricates.
 - ❌ **No orchestration awareness** — it ships no `AGENTS.md`/`CLAUDE.md` and doesn't know who dispatches it; when to parallelize and how to dispatch sub-agents is the caller's concern.
 
@@ -70,12 +70,13 @@ Fills in whatever's missing, skips what already exists; "already exists" is judg
 ```
 <project-root>/
 ├── index.md  log.md  pending.md           # single root navigation + append-only log + open items
-├── _staging/  # transient capture→integrate proposals (parallel batches only; safe to gitignore)
+├── _staging/  # capture→integrate proposals (fixed dir; contents transient — consumed by integrate)
 ├── raw/    # single source of truth, kept close to original
 │   ├── inbox/        # unprocessed entry  (inbox/clipping/ for clipper auto-saves)
 │   ├── attachment/   # binaries (PDF/img/video/PPT/audio), each referenced by a raw .md pointer
 │   └── articles/ books/ chats/ design/ ideas/ research/ videos/ work/ socialmedia/ dropzone/
-└── wiki/   # concept/ entity/ topic/ summary/ method/ tip/ github/ comparison/ quotes/ scrap/
+├── wiki/   # concept/ entity/ topic/ summary/ method/ tip/ github/ comparison/ quotes/ scrap/
+└── review/ # dated review reports, review/YYYY-MM/YYYY-MM-DD-HHMM.md — the latest one doubles as the review cursor
 ```
 
 > Internal links use Obsidian style: bare names `[[example]]` in page bodies, folder-prefixed `[[wiki/concept/example]]` in `log.md`. Non-markdown material never stands alone — it goes into `raw/attachment/` with a minimal markdown pointer file that wiki pages reference.
@@ -100,6 +101,7 @@ Drop material into `raw/inbox/`, then tell the agent what you want ("distill the
 | `schemas/wiki.md` | Per-type frontmatter + body structure for each wiki page type. |
 | `schemas/root.md` | `index.md` / `log.md` / `pending.md` format. |
 | `schemas/proposal.md` | The capture→integrate contract (`_staging/<id>.md`). |
+| `schemas/report.md` | Review report format — dated reports whose frontmatter doubles as the review cursor and feeds rollups. |
 
 ## Lineage & Credits
 

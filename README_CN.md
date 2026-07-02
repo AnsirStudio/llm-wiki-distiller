@@ -33,7 +33,7 @@
 
 - ✅ **快速** —— 不碰 inbox 的直接写入：新增、修改、归档、删除一个 `wiki/` 条目，或把一个小知识点快速记入库。
 - ✅ **蒸馏（写）** —— 处理 `raw/inbox/`（及其他 raw 素材），每条过 raw 规范化 → wiki 候选 → quote，写可溯源的页。
-- ✅ **审查（维护）** —— 扫现有库：矛盾、lint、时效、断链、孤儿、去重、`scrap`/`dropzone` 聚类——游标驱动、按切片，永不全量读库。
+- ✅ **审查（维护）** —— 扫现有库：矛盾、lint、时效、断链、孤儿、去重、`scrap`/`dropzone` 聚类、蒸馏质量抽检、库指标——游标驱动、按切片，永不全量读库；每轮产出一篇带日期的 report 落在 `review/`（最新一篇就是游标，rollup 聚合各篇 frontmatter 出月度/季度视图）。
 - ✅ **检索（问）** —— 直接读已编译好的页面回答「我是不是记过 X」「库里有没有 Y」，引用来源页；不写、不动 `log.md`、不编。
 - ❌ **不感知编排** —— 不附带 `AGENTS.md`/`CLAUDE.md`，也不知道谁调度它；何时并行、怎么派子 agent 是调用方的事。
 
@@ -70,12 +70,13 @@ SKILL.md  →  modes/<模式>.md  →  （一步一步）references/* 然后 sch
 ```
 <项目根>/
 ├── index.md  log.md  pending.md           # 单一根导航 + 只追加日志 + 待办项
-├── _staging/  # capture→integrate 的暂存提案（仅并行批处理产生；可 gitignore）
+├── _staging/  # capture→integrate 暂存提案（固定目录；内容 transient——integrate 消费后删）
 ├── raw/    # 唯一信源，尽量保持原貌
 │   ├── inbox/        # 待处理入口（inbox/clipping/ 放 clipper 自动保存内容）
 │   ├── attachment/   # 二进制（PDF/图片/视频/PPT/音频），每个都被一个 raw .md 指针引用
 │   └── articles/ books/ chats/ design/ ideas/ research/ videos/ work/ socialmedia/ dropzone/
-└── wiki/   # concept/ entity/ topic/ summary/ method/ tip/ github/ comparison/ quotes/ scrap/
+├── wiki/   # concept/ entity/ topic/ summary/ method/ tip/ github/ comparison/ quotes/ scrap/
+└── review/ # 带日期的审查报告，review/YYYY-MM/YYYY-MM-DD-HHMM.md——最新一篇兼作 review 游标
 ```
 
 > 内部链接用 Obsidian 风格：正文用裸名 `[[example]]`，`log.md` 用带路径 `[[wiki/concept/example]]`。非 markdown 素材绝不孤立存在——放进 `raw/attachment/`，并配一个最小 markdown 指针文件，由 wiki 页引用。
@@ -100,6 +101,7 @@ SKILL.md  →  modes/<模式>.md  →  （一步一步）references/* 然后 sch
 | `schemas/wiki.md` | wiki 各类型页面的 frontmatter 与正文结构。 |
 | `schemas/root.md` | `index.md` / `log.md` / `pending.md` 格式。 |
 | `schemas/proposal.md` | capture→integrate 契约（`_staging/<id>.md`）。 |
+| `schemas/report.md` | review report 格式——带日期的报告，frontmatter 兼作 review 游标、供 rollup 聚合。 |
 
 ## 渊源与致谢
 

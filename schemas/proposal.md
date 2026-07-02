@@ -6,7 +6,7 @@
 
 - 每个 capture-only 子 agent 把自己这一条的 proposal 写到库根目录 `_staging/<source-id>.md`(transient 暂存区)。
 - `integrate` 读完全部 `_staging/*.md` 并应用后,**删除已消费的 proposal**。
-- `_staging/` 是 transient,可 gitignore。它存在的意义是**断点续传**:崩了重开,扫 `_staging/` 就知道哪些已捕捉、未落库。
+- `_staging/` 是**库根固定目录**（目录常驻；内容 transient——proposal 被 integrate 消费后删除）。它存在的意义是**断点续传**:崩了重开,扫 `_staging/` 就知道哪些已捕捉、未落库。
 
 ## 格式
 
